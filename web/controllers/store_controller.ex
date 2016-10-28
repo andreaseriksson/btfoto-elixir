@@ -22,7 +22,9 @@ defmodule Btfoto.StoreController do
     picture = Repo.get_by(Btfoto.Picture, name: name, letter: letter)
 
     if picture do
-
+      Auth.login(conn, image_nr)
+      |> put_flash(:info, "Successfully logged in")
+      |> redirect(to: store_path(conn, :index))
     else
       conn
       |> put_flash(:error, "Bla bla bla")
