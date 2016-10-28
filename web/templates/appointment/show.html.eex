@@ -1,0 +1,43 @@
+<h2>Show appointment</h2>
+
+<ul>
+
+  <li>
+    <strong>Label:</strong>
+    <%= @appointment.label %>
+  </li>
+
+  <li>
+    <strong>Start time:</strong>
+    <%= @appointment.start_time %>
+  </li>
+
+  <li>
+    <strong>Approved:</strong>
+    <%= @appointment.approved %>
+  </li>
+
+  <li>
+    <strong>Booked:</strong>
+    <%= @appointment.booked %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @appointment.name %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @appointment.email %>
+  </li>
+
+  <li>
+    <strong>Phone:</strong>
+    <%= @appointment.phone %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: appointment_path(@conn, :edit, @appointment) %>
+<%= link "Back", to: appointment_path(@conn, :index) %>

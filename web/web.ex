@@ -58,6 +58,7 @@ defmodule Btfoto.Web do
   def router do
     quote do
       use Phoenix.Router
+      import Btfoto.Auth, only: [require_image_nr: 2]
     end
   end
 

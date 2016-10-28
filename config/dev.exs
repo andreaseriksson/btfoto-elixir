@@ -37,5 +37,6 @@ config :phoenix, :stacktrace_depth, 20
 config :btfoto, Btfoto.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "btfoto_development",
+  # database: "btfoto_dev",
   hostname: "localhost",
   pool_size: 10
