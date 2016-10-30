@@ -1,1 +1,27 @@
 <h2>Index</h2>
+<div class="row">
+  <div class="col-md-8">
+      <%= for grouped_products <- Enum.chunk(@products, 3) do %>
+        <div class="row">
+          <%= for product <- grouped_products do %>
+            <div class="col-md-4">
+              <%= render "_product.html", conn: @conn, product: product %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+  </div>
+  <div class="col-md-3 col-md-offset-1">
+    <%= if @cart && Enum.count(@cart.cart_items) > 0 do %>
+      <div class="alert alert-info" role="alert">
+        <%= gettext "Cart" %>
+        <hr>
+        <%= Enum.count(@cart.cart_items) %> <%= gettext "item in cart" %><br>
+        Totalt: 110.00 Kr<br>
+        Ditt pris: 99.00 Kr
+        <hr>
+        Beställningen har 551.00 Kr kvar till att skickas fraktfritt
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-defmodule Btfoto.CarItemTest do
+defmodule Btfoto.CartItemTest do
   use Btfoto.ModelCase
 
   alias Btfoto.CarItem
@@ -7,12 +7,12 @@ defmodule Btfoto.CarItemTest do
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = CarItem.changeset(%CarItem{}, @valid_attrs)
+    changeset = CartItem.changeset(%CartItem{}, @valid_attrs)
     assert changeset.valid?
   end
 
   test "changeset with invalid attributes" do
-    changeset = CarItem.changeset(%CarItem{}, @invalid_attrs)
+    changeset = CartItem.changeset(%CartItem{}, @invalid_attrs)
     refute changeset.valid?
   end
 end

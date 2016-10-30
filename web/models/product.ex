@@ -13,7 +13,7 @@ defmodule Btfoto.Product do
     field :freight, :boolean, default: false
     field :product_type, :integer
 
-    timestamps()
+    timestamps(inserted_at: :created_at)
   end
 
   @doc """

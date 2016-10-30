@@ -8,6 +8,7 @@ defmodule Btfoto.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Btfoto.Auth, repo: Btfoto.Repo
+    plug Btfoto.ShoppingCart
   end
 
   pipeline :api do
@@ -29,6 +30,7 @@ defmodule Btfoto.Router do
     pipe_through [:browser, :require_image_nr]
 
     get "/", StoreController, :index
+    post "/add_to_cart", StoreController, :add_to_cart
   end
 
   # Other scopes may use custom stacks.

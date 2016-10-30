@@ -59,6 +59,7 @@ defmodule Btfoto.Web do
     quote do
       use Phoenix.Router
       import Btfoto.Auth, only: [require_image_nr: 2]
+      import Btfoto.ShoppingCart
     end
   end
 

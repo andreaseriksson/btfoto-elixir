@@ -2,8 +2,8 @@ defmodule Btfoto.Cart do
   use Btfoto.Web, :model
 
   schema "carts" do
-
-    timestamps()
+    has_many :cart_items, Btfoto.CartItem
+    timestamps(inserted_at: :created_at)
   end
 
   @doc """

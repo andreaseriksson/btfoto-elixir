@@ -1,0 +1,19 @@
+<div class="thumbnail">
+  <img style="max-height: 180px;" src="https://btfoto.s3.amazonaws.com/uploads/product/image/<%= @product.image %>" alt="<%= @product.name %>">
+  <div class="caption">
+    <strong><%= @product.name %></strong>
+    <hr>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= form_for @conn, store_path(@conn, :add_to_cart), [as: :product], fn f -> %>
+          <%= hidden_input f, :product_id, value: @product.id %>
+          <%= hidden_input f, :return_url, value: "/store" %>
+          <%= submit raw("<i class='fa fa-cart-plus'></i>"), class: "btn btn-primary btn-xs btn-block" %>
+        <% end %>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a href="#" class="btn btn-link btn-xs btn-block" role="button">Read more</a>
+      </div>
+    </div>
+  </div>
+</div>
