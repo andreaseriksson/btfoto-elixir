@@ -12,11 +12,11 @@
       <% end %>
   </div>
   <div class="col-md-3 col-md-offset-1">
-    <%= if @cart && Enum.count(@cart.cart_items) > 0 do %>
+    <%= if @cart_summary && @cart_summary.total_items > 0 do %>
       <div class="alert alert-info" role="alert">
         <%= gettext "Cart" %>
         <hr>
-        <%= Enum.count(@cart.cart_items) %> <%= gettext "item in cart" %><br>
+        <%= @cart_summary.total_items %> <%= ngettext "item in cart", "items in cart", @cart_summary.total_items %><br>
         Totalt: 110.00 Kr<br>
         Ditt pris: 99.00 Kr
         <hr>

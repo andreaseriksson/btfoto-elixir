@@ -1,7 +1,7 @@
 defmodule Btfoto.CartItemTest do
   use Btfoto.ModelCase
 
-  alias Btfoto.CarItem
+  alias Btfoto.CartItem
 
   @valid_attrs %{cart_id: 42, image_nr: "some content", product_id: 42, quantity: 42}
   @invalid_attrs %{}
