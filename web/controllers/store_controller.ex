@@ -1,6 +1,6 @@
 defmodule Btfoto.StoreController do
   use Btfoto.Web, :controller
-  alias Btfoto.{Auth, ShoppingCart, Picture, Product, CartItem}
+  alias Btfoto.{Auth, ShoppingCart, Picture, Product, Cart, CartItem}
 
   plug :initialize_cart when action in [:add_to_cart]
 
@@ -81,9 +81,9 @@ defmodule Btfoto.StoreController do
       nil ->
         nil
       cart_id ->
-        cart = Repo.get!(Btfoto.Cart, cart_id)
-        |> Repo.preload(:cart_items)
-        Btfoto.CartSummary.output(cart.cart_items)
+        cart = Repo.one(from c in Cart, where: c.id == ^cart_id, preload: [{:cart_items, :product}])
+        cart_items = cart.cart_items
+        Btfoto.CartSummary.output(cart_items)
     end
   end
 end

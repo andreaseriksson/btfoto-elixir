@@ -2,10 +2,10 @@ defmodule Btfoto.CartItem do
   use Btfoto.Web, :model
 
   schema "cart_items" do
-    field :product_id, :integer
     field :quantity, :integer
     field :image_nr, :string
     belongs_to :cart, Btfoto.Cart
+    belongs_to :product, Btfoto.Product
     timestamps(inserted_at: :created_at)
   end
 
