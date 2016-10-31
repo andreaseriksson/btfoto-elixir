@@ -1,4 +1,4 @@
-<h2>Index</h2>
+<h2><%= gettext "Order images" %></h2>
 <div class="row">
   <div class="col-md-8">
       <%= for grouped_products <- Enum.chunk(@products, 3) do %>
@@ -17,10 +17,12 @@
         <%= gettext "Cart" %>
         <hr>
         <%= @cart_summary.total_items %> <%= ngettext "item in cart", "items in cart", @cart_summary.total_items %><br>
-        Totalt: 110.00 Kr<br>
-        Ditt pris: 99.00 Kr
+        <%= gettext "Total" %>: <%= Number.Currency.number_to_currency(110.00) %><br>
+        <%= gettext "Your price" %>: <%= Number.Currency.number_to_currency(99.00) %>
         <hr>
-        Beställningen har 551.00 Kr kvar till att skickas fraktfritt
+        <strong>
+          <%= gettext "The order has %{sum} before being sent without freight fee.", sum: Number.Currency.number_to_currency(551.0) %>
+        </strong>
       </div>
     <% end %>
   </div>
