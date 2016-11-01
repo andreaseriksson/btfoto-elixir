@@ -17,7 +17,7 @@
         <%= gettext "Cart" %>
         <hr>
         <%= @cart_summary.total_items %> <%= ngettext "item in cart", "items in cart", @cart_summary.total_items %><br>
-        <%= gettext "Total" %>: <%= Number.Currency.number_to_currency(110.00) %><br>
+        <%= gettext "Total" %>: <%= Number.Currency.number_to_currency(@cart_summary.total_price_with_vat) %><br>
         <%= gettext "Your price" %>: <%= Number.Currency.number_to_currency(99.00) %>
         <hr>
         <strong>

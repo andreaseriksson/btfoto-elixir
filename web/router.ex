@@ -30,6 +30,7 @@ defmodule Btfoto.Router do
     pipe_through [:browser, :require_image_nr]
 
     get "/", StoreController, :index
+    get "/checkout", StoreController, :checkout
     post "/add_to_cart", StoreController, :add_to_cart
   end
 

@@ -46,6 +46,6 @@ defmodule Btfoto.CartSummaryTest do
 
   test "it sums up the price of items in cart" do
     cart_summary = CartSummary.output(@cart_items)
-    assert cart_summary.total_price == 477.6
+    assert cart_summary.total_price == 716.8
   end
 end

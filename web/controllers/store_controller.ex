@@ -6,12 +6,18 @@ defmodule Btfoto.StoreController do
 
   def index(conn, _params) do
     products = Repo.all(Product)
-    render(conn, "index.html", products: products, cart_summary: load_cart(conn))
+    {_cart, cart_summary} = load_cart(conn)
+    render(conn, "index.html", products: products, cart_summary: cart_summary)
   end
 
   def show(conn, %{"slug" => slug}) do
     product = Repo.get_by(Product, slug: slug)
     render(conn, "show.html", product: product)
+  end
+
+  def checkout(conn, _params) do
+    {cart, cart_summary} = load_cart(conn)
+    render(conn, "checkout.html", cart: cart, cart_summary: cart_summary)
   end
 
   def add_to_cart(conn, %{"product" => %{"product_id" => product_id, "return_url" => return_url}}) do
@@ -79,11 +85,11 @@ defmodule Btfoto.StoreController do
   defp load_cart(conn) do
     case get_session(conn, :cart_id) do
       nil ->
-        nil
+        { nil, nil }
       cart_id ->
         cart = Repo.one(from c in Cart, where: c.id == ^cart_id, preload: [{:cart_items, :product}])
         cart_items = cart.cart_items
-        Btfoto.CartSummary.output(cart_items)
+        {cart, Btfoto.CartSummary.output(cart_items)}
     end
   end
 end
