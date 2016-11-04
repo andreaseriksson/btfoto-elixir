@@ -1,0 +1,3 @@
+<div class="thumbnail">
+  <img src="<%= picture_url(@picture) %>" alt="<%= @picture.name %>">
+</div>

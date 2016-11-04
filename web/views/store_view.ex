@@ -2,6 +2,7 @@ defmodule Btfoto.StoreView do
   use Btfoto.Web, :view
 
   @vat 0.25
+  @base_url "https://btfoto.s3.amazonaws.com/uploads/"
 
   def price_formatter(product) do
     price = decimal_to_float(product.price) * (1 + @vat)
@@ -13,6 +14,11 @@ defmodule Btfoto.StoreView do
     else
       Number.Currency.number_to_currency(price)
     end
+  end
+
+  def picture_url(picture) do
+    folder = "#{picture.year}#{picture.school}" |> String.downcase
+    "#{@base_url}picture/#{folder}/#{picture.image}"
   end
 
   defp decimal_to_float(decimal) do
