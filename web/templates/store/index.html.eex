@@ -1,29 +1,37 @@
 <h2><%= gettext "Order images" %></h2>
 <div class="row">
   <div class="col-md-8">
-      <%= for grouped_products <- Enum.chunk(@products, 3) do %>
-        <div class="row">
-          <%= for product <- grouped_products do %>
-            <div class="col-md-4">
-              <%= render "_product.html", conn: @conn, product: product %>
-            </div>
-          <% end %>
+    <div class="row">
+      <div class="col-sm-6">
+        <h3><%= gettext "Display products" %></h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a role="button" class="btn btn-info"><i class="fa fa-image"></i> <%= gettext "Preview" %></a>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <%= gettext "Filter" %> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action 1</a></li>
+            <li><a href="#">Action 2</a></li>
+            <li><a href="#">Action 3</a></li>
+          </ul>
         </div>
-      <% end %>
-  </div>
-  <div class="col-md-3 col-md-offset-1">
-    <%= if @cart_summary && @cart_summary.total_items > 0 do %>
-      <div class="alert alert-info" role="alert">
-        <%= gettext "Cart" %>
-        <hr>
-        <%= @cart_summary.total_items %> <%= ngettext "item in cart", "items in cart", @cart_summary.total_items %><br>
-        <%= gettext "Total" %>: <%= Number.Currency.number_to_currency(@cart_summary.total_price_with_vat) %><br>
-        <%= gettext "Your price" %>: <%= Number.Currency.number_to_currency(99.00) %>
-        <hr>
-        <strong>
-          <%= gettext "The order has %{sum} before being sent without freight fee.", sum: Number.Currency.number_to_currency(551.0) %>
-        </strong>
+      </div>
+    </div>
+
+    <%= for grouped_products <- Enum.chunk(@products, 3) do %>
+      <div class="row">
+        <%= for product <- grouped_products do %>
+          <div class="col-md-4">
+            <%= render "_product.html", conn: @conn, product: product %>
+          </div>
+        <% end %>
       </div>
     <% end %>
+  </div>
+  <div class="col-md-3 col-md-offset-1">
+    <%= render "_cart.html", conn: @conn, cart_summary: @cart_summary %>
+    <%= render "_current_picture.html", conn: @conn, current_picture_and_syblings: @current_picture_and_syblings %>
   </div>
 </div>

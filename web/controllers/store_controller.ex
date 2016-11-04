@@ -1,23 +1,29 @@
 defmodule Btfoto.StoreController do
   use Btfoto.Web, :controller
-  alias Btfoto.{Auth, ShoppingCart, Picture, Product, Cart, CartItem}
+  alias Btfoto.{Auth, ShoppingCart, Picture, Product, Cart, CartItem, CurrentPicture}
 
   plug :initialize_cart when action in [:add_to_cart]
 
   def index(conn, _params) do
-    products = Repo.all(Product)
+    picture = load_picture(conn)
+    products = load_products(picture)
     {_cart, cart_summary} = load_cart(conn)
-    render(conn, "index.html", products: products, cart_summary: cart_summary)
+    current_picture_and_syblings = CurrentPicture.current_picture_and_syblings(conn)
+    render(conn, "index.html", products: products, cart_summary: cart_summary, current_picture_and_syblings: current_picture_and_syblings)
   end
 
   def show(conn, %{"slug" => slug}) do
     product = Repo.get_by(Product, slug: slug)
-    render(conn, "show.html", product: product)
+    {_cart, cart_summary} = load_cart(conn)
+    current_picture_and_syblings = CurrentPicture.current_picture_and_syblings(conn)
+    render(conn, "show.html", product: product, cart_summary: cart_summary, current_picture_and_syblings: current_picture_and_syblings)
   end
 
   def checkout(conn, _params) do
     {cart, cart_summary} = load_cart(conn)
-    render(conn, "checkout.html", cart: cart, cart_summary: cart_summary)
+    # If cart is empty, redirect from this page
+    current_picture_and_syblings = CurrentPicture.current_picture_and_syblings(conn)
+    render(conn, "checkout.html", cart: cart, cart_summary: cart_summary, current_picture_and_syblings: current_picture_and_syblings)
   end
 
   def add_to_cart(conn, %{"product" => %{"product_id" => product_id, "return_url" => return_url}}) do
@@ -67,7 +73,7 @@ defmodule Btfoto.StoreController do
     conn
     |> Btfoto.Auth.logout()
     |> put_flash(:info, "You have been logged out")
-    |> redirect(to: page_path(conn, :index))
+    |> redirect(to: store_path(conn, :login))
   end
 
   defp get_name_and_letter(image_nr) do
@@ -91,5 +97,17 @@ defmodule Btfoto.StoreController do
         cart_items = cart.cart_items
         {cart, Btfoto.CartSummary.output(cart_items)}
     end
+  end
+
+  defp load_picture(conn) do
+    get_session(conn, :image_nr)
+    |> CurrentPicture.current_picture
+  end
+
+  defp load_products(picture) do
+    (
+      from p in Product,
+      where: fragment("EXISTS (SELECT 1 FROM categorizations cz WHERE cz.product_id = ? AND cz.product_category_id = ?)", p.id, ^picture.product_category_id)
+    ) |> Repo.all
   end
 end

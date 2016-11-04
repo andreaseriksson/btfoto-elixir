@@ -1,0 +1,13 @@
+<h3><%= gettext "Sample image" %></h3>
+<div class="thumbnail">
+  <img src="https://btfoto.s3.amazonaws.com/uploads/product/image/<%= @current_picture_and_syblings.current_picture.image %>" alt="<%= @current_picture_and_syblings.current_picture.name %>">
+</div>
+<div class="row">
+  <%= for picture <- @current_picture_and_syblings.syblings do %>
+    <div class="col-sm-6">
+      <div class="thumbnail">
+        <img src="https://btfoto.s3.amazonaws.com/uploads/product/image/<%= picture.image %>" alt="<%= picture.name %>">
+      </div>
+    </div>
+  <% end %>
+</div>

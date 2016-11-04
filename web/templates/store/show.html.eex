@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-9">
+        <h4><%= @product.name %></h4>
+      </div>
+      <div class="col-md-3">
+        <h4 class="text-right text-info"><%= raw price_formatter(@product) %></h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="thumbnail">
+          <img style="max-height: 180px;" src="https://btfoto.s3.amazonaws.com/uploads/product/image/<%= @product.image %>" alt="<%= @product.name %>">
+        </div>
+      </div>
+      <div class="col-md-6 text-muted">
+        <%= raw @product.description %>
+        <hr>
+        <%= form_for @conn, store_path(@conn, :add_to_cart), [as: :product], fn f -> %>
+          <%= hidden_input f, :product_id, value: @product.id %>
+          <%= hidden_input f, :return_url, value: "/store/#{@product.slug}" %>
+          <%= link gettext("Back"), to: store_path(@conn, :index), class: "btn btn-default" %>
+          <%= submit raw("<i class='fa fa-cart-plus'></i> #{gettext("Add to cart")}"), class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-md-offset-1">
+    <%= render "_cart.html", conn: @conn, cart_summary: @cart_summary %>
+    <%= render "_current_picture.html", conn: @conn, current_picture_and_syblings: @current_picture_and_syblings %>
+  </div>
+</div>

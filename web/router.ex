@@ -32,6 +32,8 @@ defmodule Btfoto.Router do
     get "/", StoreController, :index
     get "/checkout", StoreController, :checkout
     post "/add_to_cart", StoreController, :add_to_cart
+    get "logout", StoreController, :logout
+    get "/:slug", StoreController, :show
   end
 
   # Other scopes may use custom stacks.

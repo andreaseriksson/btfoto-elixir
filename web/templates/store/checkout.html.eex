@@ -44,15 +44,23 @@
           </tr>
         <% end %>
         <tr>
-          <td colspan="4"></td>
+          <td colspan="4">
+            <%= link gettext("Delete"), to: store_path(@conn, :index), class: "btn btn-danger btn-xs" %>
+            <%= link gettext("Empty cart"), to: store_path(@conn, :index), class: "btn btn-danger btn-xs" %>
+            <%= link gettext("Update"), to: store_path(@conn, :index), class: "btn btn-success btn-xs" %>
+          </td>
           <td><%= gettext "Total:" %></td>
           <td><%= Number.Currency.number_to_currency(@cart_summary.shipping_fee) %></td>
         </tr>
       </tbody>
     </table>
 
+    <div class="text-right">
+      <%= link gettext("Continue shopping"), to: store_path(@conn, :index), class: "btn btn-default btn-xl" %>
+      <%= link gettext("Go to payment"), to: store_path(@conn, :index), class: "btn btn-success btn-xl" %>
+    </div>
   </div>
   <div class="col-md-3">
-    <h3><%= gettext "Sample image" %></h3>
+    <%= render "_current_picture.html", conn: @conn, current_picture_and_syblings: @current_picture_and_syblings %>
   </div>
 </div>

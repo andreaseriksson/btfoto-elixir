@@ -2,6 +2,9 @@
   <img style="max-height: 180px;" src="https://btfoto.s3.amazonaws.com/uploads/product/image/<%= @product.image %>" alt="<%= @product.name %>">
   <div class="caption">
     <strong><%= @product.name %></strong>
+    <h4 class="text-info">
+      <%= raw price_formatter(@product) %>
+    </h4>
     <hr>
     <div class="row">
       <div class="col-sm-6">
@@ -12,7 +15,7 @@
         <% end %>
       </div>
       <div class="col-sm-6 text-right">
-        <a href="#" class="btn btn-link btn-xs btn-block" role="button">Read more</a>
+        <%= link gettext("Read more"), to: store_path(@conn, :show, @product.slug), class: "btn btn-link btn-xs btn-block" %>
       </div>
     </div>
   </div>

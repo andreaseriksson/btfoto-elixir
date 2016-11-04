@@ -21,6 +21,10 @@ defmodule Btfoto.Auth do
     |> configure_session(renew: true)
   end
 
+  def logout(conn) do
+    configure_session(conn, drop: true)
+  end
+
   def require_image_nr(conn, _opts) do
     if conn.assigns.image_nr do
       conn
