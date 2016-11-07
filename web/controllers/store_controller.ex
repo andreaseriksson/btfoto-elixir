@@ -50,13 +50,12 @@ defmodule Btfoto.StoreController do
   end
 
   def auth(conn, %{"login" => %{"image_nr" => "" }}) do
-    put_flash(conn, :error, "Bla bla bla")
+    put_flash(conn, :error, "Please supply valid credentials")
     |> redirect(to: store_path(conn, :login))
   end
 
   def auth(conn, %{"login" => %{"image_nr" => image_nr }}) do
-    {name, letter} = get_name_and_letter(image_nr)
-    picture = Repo.get_by(Picture, name: name, letter: letter)
+    picture = CurrentPicture.current_picture(image_nr)
 
     if picture do
       Auth.login(conn, image_nr)
@@ -64,8 +63,30 @@ defmodule Btfoto.StoreController do
       |> redirect(to: store_path(conn, :index))
     else
       conn
-      |> put_flash(:error, "Bla bla bla")
+      |> put_flash(:error, "The image nr you tried to use is not found.")
       |> redirect(to: store_path(conn, :login))
+    end
+  end
+
+  def change_image(conn, _params) do
+    render(conn, "change_image.html")
+  end
+
+  def switch_image(conn, %{"update_image" => %{"image_nr" => image_nr}}) do
+    switch_image(conn, %{"image_nr" => image_nr})
+  end
+
+  def switch_image(conn, %{"image_nr" => image_nr}) do
+    picture = CurrentPicture.current_picture(image_nr)
+
+    if picture do
+      Auth.login(conn, image_nr)
+      |> put_flash(:info, "Successfully changed image nr")
+      |> redirect(to: store_path(conn, :index))
+    else
+      conn
+      |> put_flash(:error, "The image nr you tried to use is not found.")
+      |> redirect(to: store_path(conn, :index))
     end
   end
 

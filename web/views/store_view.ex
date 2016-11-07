@@ -3,6 +3,12 @@ defmodule Btfoto.StoreView do
 
   @vat 0.25
   @base_url "https://btfoto.s3.amazonaws.com/uploads/"
+  @product_types %{
+    "" => gettext("Show all"), "1" => gettext("School catalog"), "2" => gettext("Group/class photo"),
+    "3" => gettext("Image package"), "4" => gettext("Portrait sheet"), "5" => gettext("Digital image")
+  }
+
+  def product_types, do: @product_types
 
   def price_formatter(product) do
     price = decimal_to_float(product.price) * (1 + @vat)
@@ -14,6 +20,10 @@ defmodule Btfoto.StoreView do
     else
       Number.Currency.number_to_currency(price)
     end
+  end
+
+  def image_nr(picture) do
+    "#{picture.name}#{picture.letter}"
   end
 
   def picture_url(picture) do

@@ -31,8 +31,11 @@ defmodule Btfoto.Router do
 
     get "/", StoreController, :index
     get "/checkout", StoreController, :checkout
+    get "/change_image", StoreController, :change_image
+    get "/switch_image", StoreController, :switch_image
+    post "/switch_image", StoreController, :switch_image
     post "/add_to_cart", StoreController, :add_to_cart
-    get "logout", StoreController, :logout
+    get "/logout", StoreController, :logout
     get "/:slug", StoreController, :show
   end
 

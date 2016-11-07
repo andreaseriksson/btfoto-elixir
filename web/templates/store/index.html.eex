@@ -12,9 +12,9 @@
             <%= gettext "Filter" %> <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <li><a href="#">Action 1</a></li>
-            <li><a href="#">Action 2</a></li>
-            <li><a href="#">Action 3</a></li>
+            <%= for {key, value} <- product_types do %>
+              <li><a href="#<%= key %>"><%= value %></a></li>
+            <% end %>
           </ul>
         </div>
       </div>
@@ -33,5 +33,9 @@
   <div class="col-md-3 col-md-offset-1">
     <%= render "_cart.html", conn: @conn, cart_summary: @cart_summary %>
     <%= render "_current_picture.html", conn: @conn, current_picture_and_syblings: @current_picture_and_syblings %>
+    <p class="text-muted">
+      <small><em>Add sybling?</em></small><br>
+      <%= link gettext("Change image nr."), to: store_path(@conn, :change_image), class: "btn btn-success btn-sm" %>
+    </p>
   </div>
 </div>

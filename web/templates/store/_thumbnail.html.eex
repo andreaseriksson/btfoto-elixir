@@ -1,3 +1,6 @@
 <div class="thumbnail">
   <img src="<%= picture_url(@picture) %>" alt="<%= @picture.name %>">
+  <%= if @link do %>
+    <%= link gettext("Choose"), to: store_path(@conn, :switch_image, image_nr: image_nr(@picture)), class: "btn btn-default btn-block btn-xs" %>
+  <% end %>
 </div>

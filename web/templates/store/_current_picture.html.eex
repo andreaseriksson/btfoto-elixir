@@ -1,9 +1,9 @@
 <h3><%= gettext "Sample image" %></h3>
-<%= render "_thumbnail.html", picture: @current_picture_and_syblings.current_picture %>
+<%= render "_thumbnail.html", picture: @current_picture_and_syblings.current_picture, link: false %>
 <div class="row">
   <%= for picture <- @current_picture_and_syblings.syblings do %>
     <div class="col-sm-6">
-      <%= render "_thumbnail.html", picture: picture %>
+      <%= render "_thumbnail.html", picture: picture, link: true, conn: @conn %>
     </div>
   <% end %>
 </div>
