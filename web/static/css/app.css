@@ -1,1 +1,13 @@
 /* This file is for your main application css. */
+
+.container {
+  max-width: 940px;
+}
+
+a.logo, a.logo:hover {
+  text-decoration: none;
+}
+
+a.logo img {
+  margin-top: -20px;
+}

@@ -1,6 +1,6 @@
 <h2><%= gettext "Order images" %></h2>
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-9">
     <div class="row">
       <div class="col-sm-6">
         <h3><%= gettext "Display products" %></h3>
@@ -30,7 +30,7 @@
       </div>
     <% end %>
   </div>
-  <div class="col-md-3 col-md-offset-1">
+  <div class="col-md-3">
     <%= render "_cart.html", conn: @conn, cart_summary: @cart_summary %>
     <%= render "_current_picture.html", conn: @conn, current_picture_and_syblings: @current_picture_and_syblings %>
     <p class="text-muted">
