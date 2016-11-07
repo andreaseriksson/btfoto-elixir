@@ -1,21 +1,18 @@
-<div class="thumbnail">
-  <img style="max-height: 180px;" src="https://btfoto.s3.amazonaws.com/uploads/product/image/<%= @product.image %>" alt="<%= @product.name %>">
+<div class="thumbnail product">
+  <%= link product_image(@product), to: store_path(@conn, :show, @product.slug) %>
   <div class="caption">
-    <strong><%= @product.name %></strong>
+    <strong><%= link @product.name, to: store_path(@conn, :show, @product.slug) %></strong>
     <h4 class="text-info">
       <%= raw price_formatter(@product) %>
     </h4>
     <hr>
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-12">
         <%= form_for @conn, store_path(@conn, :add_to_cart), [as: :product], fn f -> %>
           <%= hidden_input f, :product_id, value: @product.id %>
           <%= hidden_input f, :return_url, value: "/store" %>
-          <%= submit raw("<i class='fa fa-cart-plus'></i>"), class: "btn btn-primary btn-xs btn-block" %>
+          <%= submit raw("<i class='fa fa-cart-plus'></i> Add"), class: "btn btn-primary btn-sm btn-block" %>
         <% end %>
-      </div>
-      <div class="col-sm-6 text-right">
-        <%= link gettext("Read more"), to: store_path(@conn, :show, @product.slug), class: "btn btn-link btn-xs btn-block" %>
       </div>
     </div>
   </div>

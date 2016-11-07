@@ -42,6 +42,10 @@ defmodule Btfoto.StoreView do
     "#{@base_url}picture/#{folder}/#{picture.image}"
   end
 
+  def product_image(product) do
+    tag(:img, src: "#{@base_url}product/image/#{product.image}", alt: "product.name", style: "max-height: 180px;")
+  end
+
   defp decimal_to_float(decimal) do
     to_string(decimal) |> String.to_float
   end
