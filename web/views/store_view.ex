@@ -22,6 +22,17 @@ defmodule Btfoto.StoreView do
     end
   end
 
+  def cart_price_formatter(cart_summary) do
+    if cart_summary.discount > 0 do
+      ~s(
+        <span style="text-decoration: line-through">#{gettext "Total"}: #{Number.Currency.number_to_currency(cart_summary.discount)}</span><br>
+        #{gettext "Your price"}: #{Number.Currency.number_to_currency(cart_summary.total_price_with_vat)}
+      )
+    else
+      "#{gettext "Total"}: #{Number.Currency.number_to_currency(cart_summary.total_price_with_vat)}"
+    end
+  end
+
   def image_nr(picture) do
     "#{picture.name}#{picture.letter}"
   end

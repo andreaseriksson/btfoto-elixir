@@ -4,17 +4,19 @@
     <hr>
     <small>
       <%= @cart_summary.total_items %> <%= ngettext "item in cart", "items in cart", @cart_summary.total_items %><br>
-      <%= gettext "Total" %>: <%= Number.Currency.number_to_currency(@cart_summary.total_price_with_vat) %><br>
-      <%= gettext "Your price" %>: <%= Number.Currency.number_to_currency(99.00) %>
+      <%= raw cart_price_formatter(@cart_summary) %>
     </small>
     <hr>
     <div class="text-right">
       <%= link raw("<i class='fa fa-shopping-cart'></i> #{gettext("Checkout")}"), to: store_path(@conn, :checkout), class: "btn btn-success" %>
     </div>
-    <strong>
-      <small>
-        <br><%= gettext "The order has %{sum} before being sent without freight fee.", sum: Number.Currency.number_to_currency(551.0) %>
-      </small>
-    </strong>
+    <%= if !@cart_summary.freight_free do %>
+      <strong>
+        <small>
+          <br><%= gettext "The order has %{sum} before being sent without freight fee.",
+                  sum: Number.Currency.number_to_currency(@cart_summary.amount_before_freight_free) %>
+        </small>
+      </strong>
+    <% end %>
   </div>
 <% end %>
