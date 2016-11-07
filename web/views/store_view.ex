@@ -37,13 +37,13 @@ defmodule Btfoto.StoreView do
     "#{picture.name}#{picture.letter}"
   end
 
-  def picture_url(picture) do
+  def picture_image(picture) do
     folder = "#{picture.year}#{picture.school}" |> String.downcase
-    "#{@base_url}picture/#{folder}/#{picture.image}"
+    tag(:img, [{:data, [toggle: "tooltip"]}, src: "#{@base_url}picture/#{folder}/#{picture.image}", title: image_nr(picture)])
   end
 
   def product_image(product) do
-    tag(:img, src: "#{@base_url}product/image/#{product.image}", alt: "product.name", style: "max-height: 180px;")
+    tag(:img, src: "#{@base_url}product/image/#{product.image}", alt: product.name, style: "max-height: 180px;")
   end
 
   defp decimal_to_float(decimal) do
